@@ -16,11 +16,14 @@ class Counter extends React.Component {
   testDec = () => {
     this.props.decrement();
   };
-
+  testing = () => {
+    console.log(this.props);
+  };
   render() {
     // console.log(this.props);
     return (
       <div>
+        <button onClick={this.testing}>TEST</button>
         <h2>Counter</h2>
         <div>
           <button onClick={this.decrement}>-</button>
@@ -43,4 +46,4 @@ const mapStateToProps = state => ({
   dailySplits: state.dailySplits,
   test: state.test,
 });
-export default connect(mapStateToProps)(Counter);
+export default Counter;
