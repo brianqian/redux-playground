@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { bindActionCreators } from 'redux';
+import { Provider, connect } from 'react-redux';
+import * as actionCreators from './actions/actionCreators';
 import Counter from './Counter';
-import { Provider } from 'react-redux';
 import store from './store';
 
-const App = () => (
-  <Provider store={store}>
-    <Counter />
-  </Provider>
-);
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <ConnectedApp />
+      </Provider>
+    );
+  }
+}
+const mapStateToProps = state => ({
+  accessories: state.accessories,
+  dailySplits: state.dailySplits,
+  test: state.test,
+});
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(actionCreators, dispatch);
+};
+
+const ConnectedApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Counter);
 
 render(<App />, document.getElementById('root'));

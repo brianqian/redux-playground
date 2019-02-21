@@ -1,6 +1,6 @@
 function dailySplits(state = [], action) {
   switch (action.type) {
-    case 'INCREMENT':
+    case 'SPLITS':
       console.log('in dailySplit reducer');
       console.log(state);
       return state;

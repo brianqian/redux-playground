@@ -10,14 +10,15 @@ class Counter extends React.Component {
     this.props.dispatch({ type: 'CHANGE_ACCESSORIES' });
   };
   testInc = () => {
-    this.props.dispatch({ type: 'INCREMENT' });
+    console.log(this.props);
+    this.props.increment();
   };
   testDec = () => {
-    this.props.dispatch({ type: 'DECREMENT' });
+    this.props.decrement();
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div>
         <h2>Counter</h2>
@@ -31,6 +32,7 @@ class Counter extends React.Component {
           <p>test num: {this.props.test}</p>
           <button onClick={this.testInc}>+</button>
           <button onClick={this.testDec}>-</button>
+          <input type="text" />
         </div>
       </div>
     );
