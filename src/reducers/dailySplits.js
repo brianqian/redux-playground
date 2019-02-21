@@ -1,7 +1,8 @@
 function dailySplits(state = [], action) {
   switch (action.type) {
-    case 'SPLITS':
+    case 'INCREMENT':
       console.log('in dailySplit reducer');
+      console.log(state);
       return state;
     // return {
     //   userAccessories: action.userAccessories,
