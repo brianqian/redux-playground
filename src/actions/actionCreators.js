@@ -28,3 +28,26 @@ export function decrement() {
     type: 'DECREMENT_COUNTER',
   };
 }
+
+export const ajaxRequest = () => {
+  return {
+    type: 'FETCH_ITEMS',
+  };
+};
+
+export const testFunc = test => (dispatch, getState) => {
+  console.log(getState());
+};
+
+// const fetchPosts = subreddit => dispatch => {
+//   dispatch(requestPosts(subreddit));
+//   return fetch(`https://www.reddit.com/r/${subreddit}.json`)
+//     .then(response => response.json())
+//     .then(json => dispatch(receivePosts(subreddit, json)));
+// };
+
+// export const fetchPostsIfNeeded = subreddit => (dispatch, getState) => {
+//   if (shouldFetchPosts(getState(), subreddit)) {
+//     return dispatch(fetchPosts(subreddit))
+//   }
+// }

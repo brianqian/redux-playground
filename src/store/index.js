@@ -1,5 +1,7 @@
 import rootReducer from '../reducers/rootReducer';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import accessories from '../data/accessoryData';
 import dailySplits from '../data/dailySplitData';
@@ -8,11 +10,16 @@ const defaultState = {
   accessories,
   dailySplits,
   test: 1,
+  ajaxRequest: {
+    isFetching: false,
+    items: [],
+  },
 };
+
 const store = createStore(
   rootReducer,
   defaultState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(applyMiddleware(thunkMiddleware))
 );
 
 export default store;

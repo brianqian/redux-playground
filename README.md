@@ -1,68 +1,34 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Redux Notes
 
-## Available Scripts
+- Connect components to store via connect() instead of passing down through React.cloneElement.
+  - mapStateToProps needs to be called to pass data from store to that component
 
-In the project directory, you can run:
+```
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(actionCreators, dispatch);
+}
+ //used to connect actionCreators to component
+```
 
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- createStore(rootReducer, defaultState, applyMiddleware())
+- When using defaultState, they key names must match the keys as defined in rootReducer. Specifically inside the combineReducers function.
+  - This way, each reducer function has its own defaultState depending on its name.
+- Thunk allows you to dispatch functions instead of only objects
+- These functions are useful for dispatching an action while async occurs, waiting, and then dispatching another action on success/fail
+- Data flow works backwards like this:
+  - Store is established either as a defaultStore and passed to createStore or exists as the default value as the first argument in your reducer
+  - Reducer functions are what actually manipulate your state, but true to React, not directly. State is copied from the default, manipulated, and then returned
+  - Reducers take in two arguments, state and an action. The action is an object usually with at least one key, ‘type’. Reducers are comprised of a switch case that takes in object.type and executes the code that manipulates state
+  - Reducers can be contained in a single rootReducer file or combined via combineReducers. After the reducers are written, they are passed as the first argument to createStore.
+  - Actions functions must return an object and can take in arguments. These arguments pass data to the reducer if needed to manipulate state and are accessed in the reducer via key.
+  - A caveat to actions returning objects is when you’re using redux-thunk middleware. This allows you to dispatch functions as well which can have async code in them and then dispatch actions themselves. These functions are stored with all the other functions.
+    - These functions take arguments like a non-thunk function and return another function that takes in two arguments, dispatch and getState. Dispatch can be used to dispatch actions. getState returns the current store. This can be used to execute another function which takes state as an argument and executes some code depending on the status of the state.
+  - Actions are then either exported in their entirety as an actionCreator and bound to a component via connect & mapDispatchToProps & bindActionCreators (which make them directly accessible by that component) or they can be imported as named imports individually to each component
+  - Some key objects
+    - defaultState = {name1: ‘test’, key2: 3}
+    - rootReducer = combineReducers{name1, key2}
+- if no default state is used in createStore, then reducer names can be anything - createStore(rootReducer, defaultState, applyMiddleware)
+  - You must surround your app with a Provider component that is imported from ‘redux’. Provider takes a prop called store and it’s passed the imported store (ie createStore)
+  - Children to provider can now access the entire store by using connect(mapStateToProps)(ComponentName)
+  - mapStateToProps is a function that the user writes that selects what from state is needed for that component. This is also where you would also bind your action creators using connect(mapStateToProps, mapDispatchToProps)(ComponentName)
+  - store is accessed in the component via props. Components can also now dispatch actions since the connect function also passes down the dispatch function implicitly.
