@@ -8,18 +8,10 @@ function accessories(state = [], action) {
     //   userAccessories: action.userAccessories,
     // };
     case 'INCREMENT_BUTTON':
-      console.log(state, action, action.index);
-      const { arms } = state;
-      let i = parseInt(action.index);
-      const changeObject = Object.assign({}, arms.find(day => day.day === i + 1));
-      changeObject.day = changeObject.day + 1;
-      console.log(changeObject, i + 1);
-      let newArray = [...arms];
-      newArray[i] = changeObject;
-      console.log(newArray);
-      const newState = Object.assign({}, state, { arms: newArray });
-      console.log('newstate', newState);
-      return newState;
+      const i = parseInt(action.index);
+      const objectCopy = Object.assign({}, state);
+      objectCopy.arms[i].day++;
+      return objectCopy;
 
     default:
       return state;
