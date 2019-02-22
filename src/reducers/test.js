@@ -1,9 +1,9 @@
 function test(state = [], action) {
   switch (action.type) {
-    case 'INCREMENT':
+    case 'INCREMENT_COUNTER':
       console.log('incrementing');
       return state + 1;
-    case 'DECREMENT':
+    case 'DECREMENT_COUNTER':
       console.log('decrementing');
       return state - 1;
 

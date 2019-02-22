@@ -31,11 +31,11 @@ class Counter extends React.Component {
           <button onClick={this.increment}>+</button>
         </div>
         <div>
-          <h1>Accessory</h1>
           <p>test num: {this.props.test}</p>
           <button onClick={this.testInc}>+</button>
           <button onClick={this.testDec}>-</button>
           <input type="text" />
+          {this.props.children}
         </div>
       </div>
     );

@@ -5,15 +5,18 @@ import { Provider, connect } from 'react-redux';
 import * as actionCreators from './actions/actionCreators';
 import store from './store';
 import Counter from './Counter';
-import RootContainer from './RootContainer';
+import TestComponent from './TestComponent';
+import TestContainer from './TestContainer';
 
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <ConnectedApp>
-          <Counter />
-        </ConnectedApp>
+        <ConnectedCounter>
+          <TestContainer>
+            <TestComponent />
+          </TestContainer>
+        </ConnectedCounter>
       </Provider>
     );
   }
@@ -28,9 +31,9 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(actionCreators, dispatch);
 };
 
-const ConnectedApp = connect(
+const ConnectedCounter = connect(
   mapStateToProps,
   mapDispatchToProps
-)(RootContainer);
+)(Counter);
 
 render(<App />, document.getElementById('root'));

@@ -13,12 +13,18 @@ export function makeSplits() {
 
 export function increment() {
   return {
-    type: 'INCREMENT',
+    type: 'INCREMENT_COUNTER',
+  };
+}
+export function incrementButton(index) {
+  return {
+    type: 'INCREMENT_BUTTON',
+    index,
   };
 }
 
 export function decrement() {
   return {
-    type: 'DECREMENT',
+    type: 'DECREMENT_COUNTER',
   };
 }
