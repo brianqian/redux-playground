@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 class TestContainer extends Component {
   handleClick = () => {
@@ -15,7 +14,4 @@ class TestContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  accessories: state.accessories,
-});
 export default TestContainer;

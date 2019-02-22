@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { testFunc } from './actions/actionCreators';
+import { getItems } from './actions/actionCreators';
 
 class TestComponent extends Component {
   handleClick = () => {
@@ -12,12 +12,8 @@ class TestComponent extends Component {
     this.props.dispatch({ type: 'INCREMENT_BUTTON', index: e.target.id });
   };
 
-  getPosts = () => {
-    this.props.dispatch({ type: 'FETCH_ITEMS' });
-  };
-
   testFunc = () => {
-    this.props.dispatch(testFunc('hello'));
+    this.props.dispatch(getItems());
   };
   render() {
     const days = this.props.accessories.arms.map((day, index) => (
@@ -28,8 +24,7 @@ class TestComponent extends Component {
     return (
       <div>
         <button onClick={this.handleClick}>CONSOLE.LOG TESTCOMPONENT PROPS</button>
-        <button onClick={this.getPosts}>GET POSTS</button>
-        <button onClick={this.testFunc}>testFUNC</button>
+        {/* <button onClick={this.testFunc}>GET POSTS</button> */}
         {this.props.children}
         <button>{days}</button>
       </div>

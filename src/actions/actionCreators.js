@@ -29,14 +29,16 @@ export function decrement() {
   };
 }
 
-export const ajaxRequest = () => {
+export const ajaxRequest = data => {
   return {
     type: 'FETCH_ITEMS',
+    data,
   };
 };
 
-export const testFunc = test => (dispatch, getState) => {
-  console.log(getState());
+export const getItems = () => async (dispatch, getState) => {
+  const results = await (await fetch('https://jsonplaceholder.typicode.com/posts')).json();
+  return dispatch(ajaxRequest(results));
 };
 
 // const fetchPosts = subreddit => dispatch => {

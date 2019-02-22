@@ -1,7 +1,7 @@
 function ajaxRequest(state = [], action) {
   switch (action.type) {
     case 'FETCH_ITEMS':
-      console.log(state);
+      console.log(action.data);
 
       return state;
 
