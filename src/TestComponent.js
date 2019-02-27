@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getItems } from './actions/actionCreators';
 
 class TestComponent extends Component {
   handleClick = () => {
@@ -13,20 +12,23 @@ class TestComponent extends Component {
   };
 
   testFunc = () => {
-    this.props.dispatch(getItems());
+    console.log(this.props);
   };
   render() {
+    console.log(this.props);
     const days = this.props.accessories.arms.map((day, index) => (
       <button onClick={this.buttonClick} id={index}>
         {day.day}
       </button>
     ));
     return (
+      console.log('rerendering component')
       <div>
         <button onClick={this.handleClick}>CONSOLE.LOG TESTCOMPONENT PROPS</button>
-        {/* <button onClick={this.testFunc}>GET POSTS</button> */}
+        <button onClick={this.testFunc}>GET POSTS</button>
+        <input type="text"/>
         {this.props.children}
-        <button>{days}</button>
+        {days}
       </div>
     );
   }
